@@ -1,4 +1,4 @@
-name: 'develop - products - Build Image, Publish & Update Application Helm Chart Values'
+name: 'products - Build Image, Publish & Update Application Helm Chart Values'
 
 on:
     pull_request:
@@ -105,9 +105,9 @@ jobs:
           CONFIG_TEMP_FOLDER="$(mktemp -d)" 
           echo Clone the repository...
           git clone -b main $CONFIG_REPO_URI $CONFIG_TEMP_FOLDER 
-          cd $CONFIG_TEMP_FOLDER/$APP/develop
+          cd $CONFIG_TEMP_FOLDER/$APP/envs/develop
           ls
-          echo Update Helm chart version.yaml in $APP/develop with new image tag
+          echo Update Helm chart version.yaml in $APP/envs/develop with new image tag
           IMAGE_TAG=$IMAGE_TAG APP=$APP yq e -i '.[$APP].deployment.imageTag = env(IMAGE_TAG)' ./version.yaml
           cat version.yaml
           echo "Container image tag updated"
@@ -127,12 +127,12 @@ jobs:
           CONFIG_TEMP_FOLDER="${{ steps.clone-config-and-update.outputs.config-charts-temp-folder }}"  # Get CONFIG_TEMP_FOLDER from the previous step
           cd $HELM_CHARTS_TEMP_FOLDER/$APP
           helm dependency update .
-          helm datree test . -- --values $CONFIG_TEMP_FOLDER/$APP/develop/version.yaml
+          helm datree test . -- --values $CONFIG_TEMP_FOLDER/$APP/envs/develop/version.yaml
 
       - name: Git commit and push new image tag into values files in CONFIG repo
         run: |
           CONFIG_TEMP_FOLDER="${{ steps.clone-config-and-update.outputs.config-charts-temp-folder }}"  # Get CONFIG_TEMP_FOLDER from the previous step
-          cd $CONFIG_TEMP_FOLDER/$APP/develop
+          cd $CONFIG_TEMP_FOLDER/$APP/envs/develop
           ls -ltr
           # Check if there are changes to commit
           if [[ -n "$(git status --porcelain)" ]]; then
