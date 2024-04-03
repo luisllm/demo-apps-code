@@ -19,6 +19,7 @@ env:
   ENVIRONMENT: develop
   REPOSITORY_NAME: "ecommerce-graphql"
   APP: "graphql"
+  HELM_CHARTS_REPO: "https://github.com/luisllm/demo-helm-charts.git"
   CONFIG_REPO: "demo-argocd-datree-config"
   CONFIG_REPO_URI: "https://github.com/luisllm/demo-argocd-datree-config.git"
 
