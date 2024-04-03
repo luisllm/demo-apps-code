@@ -120,9 +120,6 @@ jobs:
       - name: Git commit and push new image tag into values files in CONFIG repo
         run: |
           TEMP_FOLDER="${{ steps.clone-and-update.outputs.temp-folder }}"  # Get TEMP_FOLDER from the previous step
-          cd $TEMP_FOLDER/application-charts/$APP
-          pwd
-          cd ../../
           # Check if there are changes to commit
           if [[ -n "$(git status --porcelain)" ]]; then
             git config user.email "luis.longo.m@gmail.com"
