@@ -3,20 +3,19 @@ name: 'develop - products - Build Image, Publish & Update Application Helm Chart
 on:
     pull_request:
       branches:
-        - develop
+        - main
       types: [opened, synchronize]
       paths-ignore:
         - 'README.md'
     workflow_dispatch:
       branches:
-        - develop
+        - main
 
 env:
   # Credentials for deployment to AWS
   AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
   AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
   AWS_REGION: "us-east-1"
-  ENVIRONMENT: develop
   ECR_REPOSITORY_NAME: "ecommerce-products"
   APP: "products"
   HELM_CHARTS_REPO_URI: "https://github.com/luisllm/demo-helm-charts.git"
@@ -140,7 +139,7 @@ jobs:
             git config user.email "luis.longo.m@gmail.com"
             git config user.name "luisllm"
             git add .
-            git commit -m "refactor - updated Helm chart values for dev environment with container image - $IMAGE_TAG" 
+            git commit -m "refactor - updated Helm chart values for develop environment with container image - $IMAGE_TAG" 
             git remote remove origin
             git remote add origin https://${{ secrets.TOKEN_GITHUB }}@github.com/luisllm/$CONFIG_REPO.git
             git push --set-upstream origin main
