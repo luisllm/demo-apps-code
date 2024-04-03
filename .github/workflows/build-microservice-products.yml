@@ -124,14 +124,14 @@ jobs:
         continue-on-error: true
         run: |
           HELM_CHARTS_TEMP_FOLDER="${{ steps.clone-helm-charts.outputs.helm-charts-temp-folder }}"  # Get HELM_CHARTS_TEMP_FOLDER from the previous step
-          CONFIG_TEMP_FOLDER="${{ steps.clone-config-and-update.outputs.config-charts-temp-folder }}"  # Get CONFIG_TEMP_FOLDER from the previous step
+          CONFIG_TEMP_FOLDER="${{ steps.clone-config-and-update.outputs.config-temp-folder }}"  # Get CONFIG_TEMP_FOLDER from the previous step
           cd $HELM_CHARTS_TEMP_FOLDER/$APP
           helm dependency update .
           helm datree test . -- --values $CONFIG_TEMP_FOLDER/$APP/envs/develop/version.yaml
 
       - name: Git commit and push new image tag into values files in CONFIG repo
         run: |
-          CONFIG_TEMP_FOLDER="${{ steps.clone-config-and-update.outputs.config-charts-temp-folder }}"  # Get CONFIG_TEMP_FOLDER from the previous step
+          CONFIG_TEMP_FOLDER="${{ steps.clone-config-and-update.outputs.config-temp-folder }}"  # Get CONFIG_TEMP_FOLDER from the previous step
           cd $CONFIG_TEMP_FOLDER/$APP/envs/develop
           ls -ltr
           # Check if there are changes to commit
