@@ -1,15 +1,15 @@
 name: 'products - Build Image, Publish & Update Application Helm Chart Values'
 
 on:
-    pull_request:
-      branches:
-        - main
-      types: [opened, synchronize]
-      paths-ignore:
-        - 'README.md'
-    workflow_dispatch:
-      branches:
-        - main
+  pull_request:
+    branches:
+      - main
+    types: [opened, synchronize]
+    paths-ignore:
+      - 'README.md'
+  workflow_dispatch:
+    branches:
+      - main
 
 env:
   # Credentials for deployment to AWS
