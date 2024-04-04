@@ -7,10 +7,16 @@ on:
     types: [opened, synchronize]
     paths-ignore:
       - 'README.md'
+  push:
+    branches:
+      - main
+    paths:
+      - apps-code/**
   workflow_dispatch:
     branches:
       - main
 
+          
 env:
   # Credentials for deployment to AWS
   AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
